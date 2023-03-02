@@ -5,13 +5,12 @@
  * @returns {object} - returns the new object
  */
 export const pick = (obj, ...fields) => {
-  const newArr = { ...obj }
   const newObj = {}
   const arg = [...fields]
 
-  for (let key in newArr) {
+  for (let key in obj) {
     if (arg.includes(key)) {
-      newObj[key] = newArr[key]
+      newObj[key] = obj[key]
     }
   }
   return newObj

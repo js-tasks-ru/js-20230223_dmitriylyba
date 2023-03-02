@@ -5,5 +5,14 @@
  * @returns {object} - returns the new object
  */
 export const omit = (obj, ...fields) => {
+  const newArr = { ...obj }
+  const newObj = {}
+  const arg = [...fields]
 
-};
+  for (let key in newArr) {
+    if (arg.includes(key)) {
+      delete newArr[key]
+    }
+  }
+  return newArr
+}
