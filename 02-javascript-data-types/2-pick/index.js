@@ -4,26 +4,27 @@
  * @param {...string} fields - the properties paths to pick
  * @returns {object} - returns the new object
  */
-export const pick = (obj, ...fields) => {
-  const newObj = {}
-  const arg = [...fields]
-
-  for (let key in obj) {
-    if (arg.includes(key)) {
-      newObj[key] = obj[key]
-    }
-  }
-  return newObj
-}
-
-//решение на уроке
+//мое решение
 // export const pick = (obj, ...fields) => {
 //   const newObj = {}
+//   const arg = [...fields]
 //
-//   for (const [key, value] of Object.entries(obj)) {
-//     if (fields.includes(key)) {
-//       newObj[key] = value
+//   for (let key in obj) {
+//     if (arg.includes(key)) {
+//       newObj[key] = obj[key]
 //     }
 //   }
 //   return newObj
 // }
+
+//решение на уроке
+export const pick = (obj, ...fields) => {
+  const newObj = {}
+
+  for (const [key, value] of Object.entries(obj)) {
+    if (fields.includes(key)) {
+      newObj[key] = value
+    }
+  }
+  return newObj
+}

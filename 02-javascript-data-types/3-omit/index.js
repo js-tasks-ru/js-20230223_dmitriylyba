@@ -20,7 +20,7 @@
 // }
 
 //решение на уроке
-export const pick = (obj, ...fields) => {
+export const omit = (obj, ...fields) => {
   const newObj = {}
 
   for (const [key, value] of Object.entries(obj)) {
