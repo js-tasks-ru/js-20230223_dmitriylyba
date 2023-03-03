@@ -15,3 +15,15 @@ export const pick = (obj, ...fields) => {
   }
   return newObj
 }
+
+//решение на уроке
+// export const pick = (obj, ...fields) => {
+//   const newObj = {}
+//
+//   for (const [key, value] of Object.entries(obj)) {
+//     if (fields.includes(key)) {
+//       newObj[key] = value
+//     }
+//   }
+//   return newObj
+// }
