@@ -3,6 +3,21 @@
  * @param {string} path - the strings path separated by dot
  * @returns {function} - function-getter which allow get value from object by set path
  */
-export function createGetter(path) {
+export const createGetter = path => {
+  const pathArray = path.split('.')
+  return obj => {
+    let result = obj
+    console.log(`Проверка значения в объекте: ${result['property']}`)
+    for (const item of pathArray) {
+      if (result === undefined) {
+        break
+      }
 
+      result = result[item]
+      console.log('result:', result, 'item:', item, 'result[item]:', result)
+    }
+    return result
+  }
 }
+
+// node ./03-objects-arrays-intro-to-testing/1-create-getter/index.js
