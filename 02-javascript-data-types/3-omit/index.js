@@ -4,6 +4,29 @@
  * @param {...string} fields - the properties paths to omit
  * @returns {object} - returns the new object
  */
-export const omit = (obj, ...fields) => {
+//мое решение
+// export const omit = (obj, ...fields) => {
+//   const newArr = { ...obj }
+//   const newObj = {}
+//   const arg = [...fields]
+//
+//   for (let key in newArr) {
+//     if (arg.includes(key)) {
+//       delete newArr[key]
+//       /* delete - крайне нежелательно применять */
+//     }
+//   }
+//   return newArr
+// }
 
-};
+//решение на уроке
+export const omit = (obj, ...fields) => {
+  const newObj = {}
+
+  for (const [key, value] of Object.entries(obj)) {
+    if (!fields.includes(key)) {
+      newObj[key] = value
+    }
+  }
+  return newObj
+}
