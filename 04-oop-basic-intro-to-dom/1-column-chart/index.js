@@ -72,14 +72,6 @@ export default class ColumnChart {
     }
 
     this.subElements = this.getSubElements(this.element)
-    // /*
-    //   создаем элемнт с тэгом div - помещаем в него наш шаблон отрисовки
-    //   - this.element
-    //   Вопросы:
-    //   this.element - какую роль выполняет
-    //   element.firstElementChild - что и зачем мы здесь делаем ?
-    //   subElements - какую роль он выполняет ?
-    // * */
   }
 
   getSubElements(element) {
@@ -91,15 +83,8 @@ export default class ColumnChart {
 
       result[name] = subElement
     }
-    j
 
     return result
-    // /*
-    // именно здесь происходит "магия" orders.append(ordersChart.element)
-    // ВОПРОСЫ:
-    // element.querySelectorAll('[data-element]') - что мы собираем здесь посредством querySelectorAll?
-    // мы же не передаем туда атрибуты
-    // */
   }
 
   update(data) {
