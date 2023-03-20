@@ -1,6 +1,7 @@
 export default class SortableTable {
   element
   sortedArr
+  subElements = {}
   constructor(headerConfig = [], data = []) {
     /* headerConfig передается массив объектов с названиями/id/характеристикой столбца для TableHeader*/
     this.headerConfig = headerConfig
@@ -12,6 +13,19 @@ export default class SortableTable {
     const wrapper = document.createElement('div')
     wrapper.innerHTML = this.createPage()
     this.element = wrapper.firstElementChild
+    this.subElements = this.getSubElements(this.element)
+  }
+  getSubElements(element) {
+    const result = {}
+    const elements = element.querySelectorAll('[data-element]')
+
+    for (const subElement of elements) {
+      const name = subElement.dataset.element
+
+      result[name] = subElement
+    }
+
+    return result
   }
   createPage() {
     return `
@@ -64,7 +78,7 @@ export default class SortableTable {
     return `
       <a href="/products/3d-ochki-epson-elpgs03" class="sortable-table__row">
         <div class="sortable-table__cell">
-          <img class="sortable-table-image" alt="Image" src="${product.images[0]['utl']}">
+          <img class="sortable-table-image" alt="Image" src="${product.images[0]['url']}">
         </div>
         <div class="sortable-table__cell">${product.title}</div>
 
@@ -87,7 +101,7 @@ export default class SortableTable {
     -> таблица должна пересобраться.
     Но этого не происходит и более того даже консоль в методе tableBody() ничего не выводит/не срабатывает
     из чего делаю предположение, что чего-то в материалах не понял.
-    Почему метод tableBody() "не видит обновленный sortedArr ? 
+    Почему метод tableBody() "не видит обновленный sortedArr ?
 
      */
 
@@ -111,7 +125,7 @@ export default class SortableTable {
           throw new Error(`Unknown type ${whatSort}`)
       }
     })
-
+    this.subElements.body.innerHTML = this.tablesRow(this.sortedArr)
     // console.log('sorted', this.sortedArr)
   }
 
