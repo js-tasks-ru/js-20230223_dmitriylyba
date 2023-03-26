@@ -33,7 +33,6 @@ export default class SortableTable {
     headerConfig = [],
     {
       data = [],
-
       sorted = {
         id: headerConfig.find(item => item.sortable).id,
         order: 'asc'
@@ -159,21 +158,12 @@ export default class SortableTable {
   getSubElements(element) {
     const result = {}
     const elements = element.querySelectorAll('[data-element]')
-    /*
-      получаем основные блоки-родители с атрибутами arrow, body, header
-      body - список товаров/кол/цены
-     */
+
     for (const subElement of elements) {
       const name = subElement.dataset.element
 
       result[name] = subElement
     }
-    /*
-      result:
-      arrow: span.sortable-table__sort-arrow
-      body: div.sortable-table__body
-      header: div.sortable-table__header.sortable-table__row
-     */
 
     return result
   }
