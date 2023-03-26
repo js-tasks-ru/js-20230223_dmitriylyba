@@ -61,6 +61,7 @@
         formatHeading: data => `$${data}`
       });
 
+      /* создаем */
       const customersChart = new ColumnChart({
         url: 'api/dashboard/customers',
         range: {
@@ -69,7 +70,7 @@
         },
         label: 'customers',
       });
-
+      /* запускаем */
       orders.append(ordersChart.element);
       sales.append(salesChart.element);
       customers.append(customersChart.element);
