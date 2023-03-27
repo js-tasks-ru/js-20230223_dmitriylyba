@@ -50,14 +50,16 @@
     },
   ];
 
-  const sortableTable = new SortableTable(headerConfig, {
-    data,
-    sorted: {
-      id: headerConfig.find(item => item.sortable).id,
-      order: 'asc'
-    }
-  });
+  const sortableTable = new SortableTable(headerConfig, { data });
 
   root.append(sortableTable.element);
+
+  // sort.addEventListener('click', () => {
+  //   const fieldValue = field.value;
+  //   const orderValue = order.value;
+  //
+  //   sortableTable.sort(fieldValue, orderValue);
+  // });
+
 </script>
 </body>
