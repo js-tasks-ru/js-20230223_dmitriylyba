@@ -54,8 +54,33 @@
     },
   ];
 
+  const strategy = (arr, id, order, sortType) => {
+    const directions = {
+      asc: 1,
+      desc: -1
+    };
+
+    const direction = directions[order];
+
+    const sortedData = arr.sort((a, b) => {
+      switch (sortType) {
+      case 'number':
+        return direction * (a[id] - b[id]);
+      case 'string':
+        return direction * a[id].localeCompare(b[id], 'ru');
+      default:
+        return direction * (a[id] - b[id]);
+      }
+    });
+
+    return (callback) => {
+      callback(sortedData);
+    }
+  }
+
   const sortableTable = new SortableTable(header, {
-    url: 'api/rest/products'
+    url: 'api/rest/products',
+    strategy
   });
 
   root.append(sortableTable.element);

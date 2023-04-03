@@ -1,3 +1,4 @@
+const BACKEND_URL = 'https://course-js.javascript.ru'
 export default class SortableTable {
   element
   subElements = {}
@@ -18,6 +19,9 @@ export default class SortableTable {
 
     this.render()
   }
+  sortOnClient(id, order) {}
+
+  sortOnServer(id, order) {}
   onSortClick = event => {
     const column = event.target.closest('[data-sortable="true"]')
     const toggleOrder = order => {
