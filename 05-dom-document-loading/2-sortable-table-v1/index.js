@@ -24,7 +24,7 @@ export default class SortableTable {
 
       result[name] = subElement
     }
-
+    console.log('result', result)
     return result
   }
   createPage() {
@@ -71,7 +71,7 @@ export default class SortableTable {
         ${(this.sortedArr ? this.sortedArr : this.data)
           .map(item => this.tablesRow(item))
           .join('')}
-      <div/>
+      </div>
     `
   }
   tablesRow(product) {
@@ -88,45 +88,45 @@ export default class SortableTable {
       </a>
     `
   }
+  sort(field, order) {
+    const sortedData = this.sortData(field, order)
+    const allColumns = this.element.querySelectorAll(
+      '.sortable-table__cell[data-id]'
+    )
+    const currentColumn = this.element.querySelector(
+      `.sortable-table__cell[data-id="${field}"]`
+    )
 
-  sort(fieldValue, orderValue) {
-    /*
-    !!! Владимир, решил реализовать задачу путем пересортировки массива данных ->
-    отображение строк таблицы в новой последовательности
-    НО!
-    1 В this.sortedArr я получаю отсортированный должным образом массив
-    2 в методе tableBody() установлено условие из какого массива формировать таблицу
-    и если sortedArr true - взять таковую.
-    В моем понимании, когда я помещаю в sortedArr массив отсортированных данных и он становится true
-    -> таблица должна пересобраться.
-    Но этого не происходит и более того даже консоль в методе tableBody() ничего не выводит/не срабатывает
-    из чего делаю предположение, что чего-то в материалах не понял.
-    Почему метод tableBody() "не видит обновленный sortedArr ?
+    // NOTE: Remove sorting arrow from other columns
+    allColumns.forEach(column => {
+      column.dataset.order = ''
+    })
 
-     */
+    currentColumn.dataset.order = order
 
-    const whatSort = (fieldValue = 'title' ? 'title' : 'other')
+    this.subElements.body.innerHTML = this.tablesRow(sortedData)
+  }
 
+  sortData(field, order) {
+    const arr = [...this.data]
+    const column = this.headerConfig.find(item => item.id === field)
+    const { sortType } = column
     const directions = {
       asc: 1,
       desc: -1
     }
-    const direction = directions[orderValue]
+    const direction = directions[order]
 
-    this.sortedArr = this.data.sort((a, b) => {
-      switch (whatSort) {
-        case 'other':
-          return direction * (a[fieldValue] - b[fieldValue])
-        case 'title':
-          return (
-            direction * a[fieldValue].localeCompare(b[fieldValue], ['ru', 'en'])
-          )
+    return arr.sort((a, b) => {
+      switch (sortType) {
+        case 'number':
+          return direction * (a[field] - b[field])
+        case 'string':
+          return direction * a[field].localeCompare(b[field], ['ru', 'en'])
         default:
-          throw new Error(`Unknown type ${whatSort}`)
+          throw new Error(`Unknown type ${sortType}`)
       }
     })
-    this.subElements.body.innerHTML = this.tablesRow(this.sortedArr)
-    // console.log('sorted', this.sortedArr)
   }
 
   remove() {
